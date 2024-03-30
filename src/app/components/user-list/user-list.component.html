@@ -1,0 +1,41 @@
+<div>
+  <div class="sorting-container">
+    <mat-form-field appearance="fill" class="search-bar">
+      <mat-label>Search by ID</mat-label>
+      <input matInput #searchInput (input)="onSearch(searchInput.value)" />
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="isLoading; else userList">
+    <mat-spinner></mat-spinner>
+  </div>
+  <ng-template #userList>
+    <div class="grid-container">
+      <div *ngFor="let user of pageSlice" class="grid-item">
+        <mat-card class="user-card" (click)="userDetail(user.id)">
+          <!-- Image -->
+          <img mat-card-image [src]="user.avatar" alt="User avatar" />
+          <!-- Name and ID below the image -->
+          <mat-card-content>
+            <div class="user-info">
+              <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+              <p class="user-id">ID: {{ user.id }}</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div *ngIf="pageSlice.length === 0" class="empty-list-message">
+        Empty list of users
+      </div>
+    </div>
+  </ng-template>
+  <mat-paginator
+    [length]="totalUsersCount"
+    [pageSize]="6"
+    [showFirstLastButtons]="true"
+    [pageSizeOptions]="[6]"
+    (page)="handlePageEvent($event)"
+    class="paginator"
+  >
+  </mat-paginator>
+</div>
