@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist",
+    "public": "dist/maidscc-project",
     "ignore": [
       "firebase.json",
       "**/.*",
